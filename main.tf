@@ -26,7 +26,7 @@ module my_cloud_run_service {
   memory                =   256
   min_instances         =   0
   port                  =   8080
-  project               =   null
+  project               =   var.project
   revision              =   null
   service_account_email =   null
   timeout               =   60

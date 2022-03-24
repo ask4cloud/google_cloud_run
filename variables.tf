@@ -13,3 +13,9 @@ variable "location" {
     type = string
     description = "Location of the service."
 }
+
+
+variable project {
+  type = string
+  description = "Google Cloud project in which to create resources."
+}
