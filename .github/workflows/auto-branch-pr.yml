@@ -34,7 +34,7 @@ jobs:
           gh status
 
           # Set the branch name as an output
-          echo "branch-name=$NEW_BRANCH_NAME" >> $GITHUB_ENV
+          echo "branch-name=$NEW_BRANCH_NAME" >> $GITHUB_OUTPUT
 
   create-pull-request:
     needs: create-branch
