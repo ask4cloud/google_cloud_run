@@ -23,7 +23,15 @@ jobs:
           gh auth login --with-token ${{ secrets.ACCESS_TOKEN }}
 
           # Create a new branch from the current branch
-          gh repo branch $NEW_BRANCH_NAME
+          git checkout $NEW_BRANCH_NAME
+
+          touch test.txt
+
+          git add .
+          git commit -m "add test file"
+          git push
+
+          gh status
 
           # Set the branch name as an output
           echo "branch-name=$NEW_BRANCH_NAME" >> $GITHUB_ENV
