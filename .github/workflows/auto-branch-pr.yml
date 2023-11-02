@@ -20,7 +20,7 @@ jobs:
           NEW_BRANCH_NAME="new-branch-name"
 
           # Authenticate with GitHub using your token or credentials
-          gh auth login --with-token ${secret.ACCESS_TOKEN}
+          gh auth login --with-token ${{ secrets.ACCESS_TOKEN }}
 
           # Create a new branch from the current branch
           gh repo branch $NEW_BRANCH_NAME
@@ -43,7 +43,7 @@ jobs:
           BASE_BRANCH="main"
 
           # Authenticate with GitHub using your token or credentials
-          gh auth login --with-token ${secret.ACCESS_TOKEN}
+          gh auth login --with-token ${{ secrets.ACCESS_TOKEN }}
 
           # Create a pull request from the new branch to the main branch
           gh pr create --base $BASE_BRANCH --head $NEW_BRANCH_NAME --title "New Pull Request" --body "Description of the pull request"
