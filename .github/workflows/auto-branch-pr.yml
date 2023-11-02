@@ -1,0 +1,49 @@
+name: Create New Branch and Pull Request
+
+on:
+  workflow_dispatch: # Trigger the workflow manually
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      branch-name: ${{ steps.create-branch.outputs.branch-name }}
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Create a new branch
+        id: create-branch
+        run: |
+          # Specify your branch name
+          NEW_BRANCH_NAME="new-branch-name"
+
+          # Authenticate with GitHub using your token or credentials
+          gh auth login --with-token <your-access-token-here>
+
+          # Create a new branch from the current branch
+          gh repo branch $NEW_BRANCH_NAME
+
+          # Set the branch name as an output
+          echo "branch-name=$NEW_BRANCH_NAME" >> $GITHUB_ENV
+
+  create-pull-request:
+    needs: create-branch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Create a Pull Request
+        run: |
+          # Retrieve the branch name from the create-branch job's output
+          NEW_BRANCH_NAME="${{ needs.create-branch.outputs.branch-name }}"
+          BASE_BRANCH="main"
+
+          # Authenticate with GitHub using your token or credentials
+          gh auth login --with-token <your-access-token-here>
+
+          # Create a pull request from the new branch to the main branch
+          gh pr create --base $BASE_BRANCH --head $NEW_BRANCH_NAME --title "New Pull Request" --body "Description of the pull request"
