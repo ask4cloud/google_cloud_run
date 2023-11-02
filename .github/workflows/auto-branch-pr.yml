@@ -20,7 +20,7 @@ jobs:
           NEW_BRANCH_NAME="new-branch-name"
 
           # Authenticate with GitHub using your token or credentials
-          gh auth login --with-token ${{ secrets.ACCESS_TOKEN }}
+          gh auth login --with-token <<< ${{ secrets.ACCESS_TOKEN }}
 
           # Create a new branch from the current branch
           git checkout $NEW_BRANCH_NAME
